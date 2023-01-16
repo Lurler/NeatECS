@@ -32,6 +32,9 @@ public partial class World
     /// </summary>
     public void Update()
     {
+        if (!IsInitialized)
+            throw new InvalidOperationException("World must be initialized before running.");
+
         // update all active systems
         foreach (var system in systems) 
         {
