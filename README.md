@@ -76,8 +76,8 @@ public class CounterSystem : BaseSystem
 		// nothing to do
 	}
 
-    public override void OnUpdate(World world)
-    {
+	public override void OnUpdate(World world)
+	{
 		// get all entities that have "CounterComponent" attached
 		var result =
 			world.Query()
