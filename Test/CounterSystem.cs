@@ -14,7 +14,7 @@ public class CounterSystem : BaseSystem
         var result =
             world
                 .Query()
-                .One<CounterComponent>()
+                .All<CounterComponent>()
                 .Execute();
 
         foreach (var item in result)

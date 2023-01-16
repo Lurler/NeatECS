@@ -18,13 +18,13 @@ namespace Test
             // ============ Entity creation test ============
             GC.TryStartNoGCRegion(1024 * 1024 * 1024);
             StartTimer();
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 var entity = world.NewEntity();
                 entity
                     .Set(new CounterComponent(0));
             }
-            StopTimer("Entity creation x10000: ~");
+            StopTimer("Entity creation x1000: ~");
             GC.EndNoGCRegion();
             GC.Collect();
 
