@@ -159,9 +159,9 @@ public struct CounterComponent : IComponent
 ```
 
 ### Query
-You can qury components from the world by using All, Any and None clauses. These clauses can be combined and chained in any way. The only exception is you cannot start your query with "None" clause.
+You can query components from the world by using `All`, `Any` and `None` clauses. These clauses can be combined and chained in any way. The only exception is you cannot start your query with the `None` clause.
 
-Here's an example query that will return components that contain both A and B, contain at least one C or D but don't contain Z.
+Here's an example query that will return entities that contain both A and B, contain at least one C or D but don't contain Z. You can include several types in the same clause.
 ```cs
 var result =
 	world.Query()
@@ -173,25 +173,25 @@ var result =
 
 After you execute the query you will get a list of entities that fullfil the specified clauses.
 
-## Speed
+## Performance
 This library is by no means the fastest. If you need to manage tens of thousands of entities with dozens of systems running concurrently it is recommended to use a more advanced library. But if you are making a hobby project or a small game the performans it offers should be enough.
 
 Here's the benchmark for 1000 entities:
-	- Initialization: < 1 ms.
-	- Creating 1000 entities with 1 component each: ~1 ms.
-	- Updating: ~0.15 ms
-	
+ - Initialization: < 1 ms.
+ - Creating 1000 entities with 1 component each: ~1 ms.
+ - Updating: ~0.15 ms
+
 Here's the benchmark for 10,000 entities:
-	- Initialization: < 1 ms.
-	- Creating 10,000 entities with 1 component each: ~2 ms.
-	- Updating: ~1.5 ms
+ - Initialization: < 1 ms.
+ - Creating 10,000 entities with 1 component each: ~2 ms.
+ - Updating: ~1.5 ms
 	
 As you can see the performance should be enough for the purposes this library is created for. You can also run the test project included in the source to see the performance on your machine.
 
 ## Contribution
 Contributions are welcome!
 
-You can start with submitting an [issue on GitHub](https://github.com/Lurler/NeatECS/issues)
+You can start with submitting an [issue on GitHub](https://github.com/Lurler/NeatECS/issues).
 
 ## License
 **NeatECS** is released under the [MIT License](../master/LICENSE).
