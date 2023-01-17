@@ -30,7 +30,7 @@ public partial class World
     }
 
     /// <summary>
-    /// Adds a component to an entity or replaces it with a new copy.
+    /// Adds a component or replaces it with a new copy.
     /// </summary>
     internal void SetComponent(ulong id, IComponent component)
     {
@@ -43,12 +43,21 @@ public partial class World
     }
 
     /// <summary>
-    /// Returns a component of a given type or null if no such component exists.
+    /// Checks if a component of a specified type is attached to the entity.
     /// </summary>
-    public T? GetComponent<T>(ulong id) where T : IComponent
+    public bool HasComponent<T>(ulong id) where T : IComponent
+    {
+        return componentData.ContainsKey(typeof(T)) && componentData[typeof(T)].ContainsKey(id);
+    }
+
+    /// <summary>
+    /// Returns a component of a given type.
+    /// Throws an exception if component of the specified type is not attached.
+    /// </summary>
+    public T GetComponent<T>(ulong id) where T : IComponent
     {
         if (!componentData.ContainsKey(typeof(T)) || !componentData[typeof(T)].ContainsKey(id))
-            return default;
+            throw new InvalidOperationException("Entity doesn't have specified component.");
 
         return (T)componentData[typeof(T)][id];
     }
@@ -87,7 +96,8 @@ public partial class World
     }
 
     /// <summary>
-    /// Adds entity to the dead list to be cleaned at the end of update cycle.
+    /// Adds entity to the "dead" list to be cleaned at the end of update cycle.
+    /// To be more specific it will have all of its components removed.
     /// </summary>
     internal void DestroyEntity(ulong id)
     {

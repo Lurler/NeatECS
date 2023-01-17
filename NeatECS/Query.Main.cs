@@ -65,25 +65,30 @@ public partial class Query
     /// </summary>
     private void InternalAny(Type[] types)
     {
+        // how many types have we found?
+        var found = 0;
+
+        // temporary results results
+        List<ulong> temp = new();
+
         foreach (var t in types)
         {
             // if no components of given type are registered then proceed to next type
             if (!world.componentData.ContainsKey(t) || world.componentData[t].Count == 0)
-            {
                 continue;
-            }
 
-            // start filtering
-            if (elements is null)
-            {
-                // if this is the first type checked, then use this set as the initial data
-                elements = world.componentData[t].Keys.ToList();
-                continue;
-            }
+            // so, we found something
+            found++;
 
-            // otherwise creates a new list that is union of both previous sets
-            elements = elements.Union(world.componentData[t].Keys).ToList();
+            // include this data
+            temp = temp.Union(world.componentData[t].Keys).ToList();
         }
+
+        // if we haven't found at least one desired type, then this clause is not fulfilled, so make the results empty
+        if (found > 0)
+            elements = elements?.Intersect(temp).ToList() ?? temp;
+        else
+            elements = new();
     }
 
     /// <summary>

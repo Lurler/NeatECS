@@ -2,11 +2,11 @@
 
 namespace Test;
 
-public struct CounterComponent : IComponent
+public struct CounterAComponent : IComponent
 {
     public int counter;
 
-    public CounterComponent(int counter)
+    public CounterAComponent(int counter)
     {
         this.counter = counter;
     }

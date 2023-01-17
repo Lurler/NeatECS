@@ -19,36 +19,33 @@ public readonly struct Entity
         this.id = id;
     }
 
-    /// <summary>
-    /// Adds a new component to the entity or replaces an existing one.
-    /// </summary>
+    /// <inheritdoc cref="World.SetComponent(ulong, IComponent)"/>
     public Entity Set(IComponent component)
     {
         world.SetComponent(id, component);
         return this;
     }
 
-    /// <summary>
-    /// Returns a component of a given type or null if no such component exists.
-    /// </summary>
-    public T? Get<T>() where T : IComponent
+    /// <inheritdoc cref="World.HasComponent{T}(ulong)"/>
+    public bool Has<T>() where T : IComponent
+    {
+        return world.HasComponent<T>(id);
+    }
+
+    /// <inheritdoc cref="World.GetComponent{T}(ulong)"/>
+    public T Get<T>() where T : IComponent
     {
         return world.GetComponent<T>(id);
     }
 
-    /// <summary>
-    /// Removes a component from the entity (if it was present).
-    /// </summary>
+    /// <inheritdoc cref="World.RemoveComponent{T}(ulong)"/>
     public Entity Remove<T>() where T : IComponent
     {
         world.RemoveComponent<T>(id);
         return this;
     }
 
-    /// <summary>
-    /// Marks this entity as "deleted" for removal at the end of the next update cycle.
-    /// To be more specific it removes all components that are associated with this entity ID.
-    /// </summary>
+    /// <inheritdoc cref="World.DestroyEntity(ulong)"/>
     public void Destroy()
     {
         world.DestroyEntity(id);

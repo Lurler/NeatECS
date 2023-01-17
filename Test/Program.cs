@@ -12,32 +12,39 @@ namespace Test
             World world = new();
             world
                 .AddSystem<CounterSystem>()
+                .AddSystem<MixerSystem>()
                 .Initialize();
             StopTimer("Initialization: ~");
 
             // ============ Entity creation test ============
             GC.TryStartNoGCRegion(1024 * 1024 * 1024);
+            var random = new Random();
             StartTimer();
             for (int i = 0; i < 1000; i++)
             {
                 var entity = world.NewEntity();
-                entity
-                    .Set(new CounterComponent(0));
+
+                if (random.NextDouble() > 0.5) 
+                    entity.Set(new CounterAComponent(0));
+                if (random.NextDouble() > 0.5)
+                    entity.Set(new CounterBComponent(0));
+                if (random.NextDouble() > 0.5)
+                    entity.Set(new CounterCComponent(0));
+
+                if (random.NextDouble() > 0.5)
+                    entity.Set(new MixerComponent());
             }
             StopTimer("Entity creation x1000: ~");
             GC.EndNoGCRegion();
             GC.Collect();
 
             // ============ Update test ============
-            GC.TryStartNoGCRegion(1024 * 1024 * 1024);
             StartTimer();
             for (int i = 0; i < 1000; i++)
             {
                 world.Update();
             }
             StopTimer("Update: ", 1000);
-            GC.EndNoGCRegion();
-            GC.Collect();
         }
 
         private static Stopwatch stopwatch = new();
