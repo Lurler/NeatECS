@@ -3,6 +3,11 @@
 
 The goal of this framework is to make working with ECS in your projects as easy as it can possibly be. It offers a clean, minimalist, and fully documented API that is easy to learn and use.
 
+## Installation
+Use provided nuget package or download the source.
+
+:wrench: Nuget: `dotnet add package NeatECS`
+
 ## Quick start
 First, create a world and add some systems that you want to run in your game.
 
